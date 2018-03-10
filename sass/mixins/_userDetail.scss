@@ -1,0 +1,22 @@
+.userDetail-container{
+    border:0px solid white;
+    width:400px;
+    height:400px;
+    margin: 5% auto 0 10%;
+    .userDetail-nav{
+        display:flex; 
+        list-style: none;
+        flex-direction: column;
+     & li:first-child{
+            margin-top:0;
+            width:50%;
+        }
+        & li{
+            margin-top:4em;
+            color:white;
+            @include font-family;
+            @include heading-2;
+        }
+        
+    }
+}

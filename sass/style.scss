@@ -1,0 +1,82 @@
+@import "mixins/_manifest.scss";
+body{
+    background-image: url(../images/bgspread.jpg);
+    .container{
+        display: flex;
+        flex-direction: row;
+        border:0px solid black;
+        margin:0 auto;
+        width:70%;
+        justify-content: center;
+        padding:10em;
+        & > .form-registration{
+            margin-right:auto;
+            h2{
+                 @include heading-2;
+            }
+            input{
+                   @include auth-inputs;
+                   background-image: url(../images/bgspread.jpg);
+                    &:focus{
+                       animation:fill 2s  ease-in-out forwards;
+
+                }
+                    &:focus::-webkit-input-placeholder{
+                      @include input-focus-animation;
+                     }
+                }
+                .reg-btn{
+                   @include submit-button;
+                    &:hover{
+                        cursor: pointer;
+                    }
+                }
+            
+        }
+            & > .form-login{
+            margin-right:0;
+                h2{
+                 @include heading-2;
+                }
+                input{
+                   @include auth-inputs;
+                   background-image: url(../images/bgspread.jpg);
+                    &:focus{
+                       animation:fill 2s  ease-in-out forwards;
+
+                    }
+                    &:focus::-webkit-input-placeholder{
+                      @include input-focus-animation;
+                     }
+                }
+                .login-btn{
+                   @include submit-button;
+                    &:hover{
+                        cursor: pointer;
+                    }
+                }
+            }
+    }
+    @import "mixins/_userDetail.scss";
+    @import "mixins/_dashboard.scss";
+ }
+
+@keyframes fill{
+	0%{
+		border-bottom-width:0%;
+		border-bottom:2px solid green;
+		border-left-style:none;
+		border-right-style:none;
+		border-top-style:none;
+	}
+
+	100%
+	{
+		border-bottom-width:2%;
+		border-bottom:2px solid green;
+		outline:none;
+		border-left-style:none;
+		border-right-style:none;
+		border-top-style:none;
+	}
+}
