@@ -4,6 +4,29 @@
 	<title>Admin Dashboard</title>
 	<link rel="stylesheet" href="css/style.css">
 	<script>
+			var globalIndex;
+			function UpdateInfo(){
+				var user_name  = document.getElementById("updateName").value;
+				var user_email = document.getElementById("updateEmail").value;
+				var user_age   = document.getElementById("updateAge").value;
+				console.log(user_name);
+				console.log(user_email);
+				console.log(user_age);
+				var localStorageUserListArray = JSON.parse(localStorage.getItem("userList"));
+				localStorageUserListArray[globalIndex].anyuser = user_name;
+				localStorageUserListArray[globalIndex].email = user_email;
+				localStorageUserListArray[globalIndex].age = user_age;
+				document.getElementById("userData-"+globalIndex+'-one').innerHTML = user_name;
+				document.getElementById("userData-"+globalIndex+'-two').innerHTML = user_email;
+				document.getElementById("userData-"+globalIndex+'-three').innerHTML = user_age;
+				localStorage.setItem("userList",JSON.stringify(localStorageUserListArray));
+
+				console.log(localStorageUserListArray);
+				/*localStorage.setItem("userList",JSON.stringify(localStorageUserListArray[globalIndex].email));
+				localStorage.setItem("userList",JSON.stringify(localStorageUserListArray[globalIndex].age));
+					var localStorageUserListArray1 = JSON.parse(localStorage.getItem("userList"));
+					console.log(localStorageUserListArray1);*/
+			}
 			function adminData(){
 					var admin = JSON.parse(localStorage.getItem("Admin")); 
 					document.getElementById("adminname").innerHTML =admin.admin_user;
@@ -43,12 +66,25 @@
 						document.getElementById('userData-btn-'+i).innerHTML = 'EDIT';
 						//Action Listeners
 						
-						document.getElementById('userData-btn-'+i).addEventListener("click",function(){
+						document.getElementById('userData-btn-'+i).addEventListener("click",function(e){
+							console.log(e);
+							console.log(e.target.id)
+							console.log(e.target.id.split('-'))
+							var elementLength = e.target.id.split('-').length;
+							var index = e.target.id.split('-')[elementLength - 1];
+							globalIndex = index;
+							console.log(index);
+							document.getElementById('editInputs').style.display = "block";
 							console.log("clicked");
-							 document.getElementById('editInputs').style.display = "block";
-							 var localArray = [];
+							localArray = JSON.parse(localStorage.getItem("userList"));
+							console.log(localArray[index]);
+							document.getElementById('updateName').value = localArray[index].anyuser;
+							document.getElementById('updateEmail').value = localArray[index].email;
+							document.getElementById('updateAge').value = localArray[index].age;
+
+							 /*var localArray = [];
 							 localArray = JSON.parse(localStorage.getItem("userList"));
-							 console.log(localArray);
+							 console.log(localArray);*/
 							/* for(var j in localArray ){
 								console.log(localArray[0].anyuser)
 								console.log(localArray[0].email)
@@ -99,10 +135,10 @@
 	</div>
 	<div id="editInputs">
 		<form name="frm">
-			<input type="text" placeholder="Name" id="updateName"/><br/>
-			<input type="text" placeholder="Email" id="updateEmail"/><br/>
-			<input type="text" placeholder="Age" id="updateAge"/><br/>
-			<input type="button" value="Save" id="save">
+			<input type="text" placeholder="Name" id="updateName" /><br/>
+			<input type="text" placeholder="Email" id="updateEmail" /><br/>
+			<input type="text" placeholder="Age" id="updateAge" /><br/>
+			<input type="button" value="Save" id="save" onclick="UpdateInfo()">
 			<input type="button" value="Cancel" id="cancel">
 		</form>
 	</div>
