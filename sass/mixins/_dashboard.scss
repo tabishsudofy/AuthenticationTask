@@ -35,3 +35,17 @@
             }
         }
     }
+    #editInputs{
+        display: none;
+       text-align: center;
+       input{
+            @include auth-inputs;
+            background-image: url(../images/bgspread.jpg);
+            &:focus{
+                animation:fill 2s  ease-in-out forwards;
+            }
+            &:focus::-webkit-input-placeholder{
+                @include input-focus-animation;
+                }
+        }
+    }

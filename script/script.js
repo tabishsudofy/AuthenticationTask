@@ -13,22 +13,22 @@
     function login(){
        var username = document.getElementById("login-user").value;
        var pass = document.getElementById("login-password").value;
-       var localUser = JSON.parse(localStorage.getItem('userList'));
+       var localUser = [];
+        localUser =  JSON.parse(localStorage.getItem('userList'));
        
        console.log(localUser);
        console.log(dummyArray);
       // console.log('GET User : ', localUser[0].anyuser);
-         for(var i = 0 ;  i< dummyArray.length;i++){
+         for(var i = 0 ;  i< localUser.length;i++){
             if(localUser[i].anyuser == username && localUser[i].password == pass){
               if(username == "Admin" && localUser[i].password == pass){
                 var admin_obj={
-              admin_user : localUser[i].anyuser,
-              admin_email : localUser[i].email,
-              admin_age : localUser[i].age,
+                admin_user : localUser[i].anyuser,
+                admin_email : localUser[i].email,
+                admin_age : localUser[i].age,
            };
                  localStorage.setItem("Admin" ,JSON.stringify(admin_obj));
-                 var localAdmin = JSON.parse(localStorage.getItem("Admin")); 
-                adminData(localAdmin);
+                //  var localAdmin = JSON.parse(localStorage.getItem("Admin")); 
                 document.location.href = "dashboard.html";
 
               }else{
@@ -51,7 +51,7 @@
       }
   }
        
-
+  // sign up data
   function getInputData(){
         var username = document.getElementById("reg-username").value;
        var email = document.getElementById("reg-email").value;
@@ -65,6 +65,7 @@
       console.log('User object : ',user);
       dummyArray.push(user);
   }
+  // login user data
   function userData(){
       var localstorage = JSON.parse(localStorage.getItem('Login'));
       console.log(localstorage);
@@ -76,20 +77,15 @@
       console.log(localstorage.obj_age); 
       
 }
- function adminData(admin){
-      // var localstorage = JSON.parse(localStorage.getItem('Admin'));
-      // console.log(localstorage);
-      
-      console.log(admin.admin_user);
-      console.log(admin.admin_email);
-      console.log(admin.admin_age); 
-       var name = document.getElementById("name").innerHTML  ;
-      // var email = document.getElementById("email").innerHTML;
-      // var age = document.getElementById("age").innerHTML ;
-      //  document.getElementsByTagName("span").innerHTML = "khan"; //admin.admin_user.toString();
-       document.getElementById("admin_email").innerHTML =admin.admin_email.toString();
-    //  document.getElementById("admin_age").innerHTML = admin.admin_age.toString();
-   
-      
-      
-}
+//login admin data
+//  function adminData(){
+//        var admin = JSON.parse(localStorage.getItem("Admin")); 
+//        document.getElementById("adminname").innerHTML =admin.admin_user;
+//        document.getElementById("admin_email").innerHTML = admin.admin_email;
+//        document.getElementById("admin_age").innerHTML = admin.admin_age;
+//       console.log("==============");
+//       console.log(name);
+//       console.log(email);
+//       console.log(age);     
+//       console.log("=============="); 
+// }

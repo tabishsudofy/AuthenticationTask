@@ -1,36 +1,111 @@
 <html>
-	<head>
-		<title>Admin Dashboard</title>
-		<link rel="stylesheet" href="css/style.css">
-		
-	</head>
-	<body>
-		<script src="script/script.js"></script>
-		<div class="dashboard-container">
-			<ul class="userDetails">
-				<li>Name   : <p id="adminname">	</p></li>
-				<li>Email   : <p id="admin_email"></p></li>
-				<li>Age    :  <p id="admin_age"></p></li>
+
+<head>
+	<title>Admin Dashboard</title>
+	<link rel="stylesheet" href="css/style.css">
+	<script>
+			function adminData(){
+					var admin = JSON.parse(localStorage.getItem("Admin")); 
+					document.getElementById("adminname").innerHTML =admin.admin_user;
+					document.getElementById("admin_email").innerHTML = admin.admin_email;
+					document.getElementById("admin_age").innerHTML = admin.admin_age;
 				
-			</ul>
-			<div class="userList">
-				<h2>User List</h2>
-				<table>
-					<tr class="row">
-						<td>Name</td>
-						<td>Email</td>
-						<td>Age</td>
-						<td>Password</td>
-					</tr>
-					<tr class="userData">
-						<td>Name</td>
-						<td>Email</td>
-						<td>Age</td>
-						<td>Password</td>
-					</tr>
-				</table>
-			</div>
+					console.log("==============");
+					  console.log(admin); 
+					console.log("==============");
+					userListData(); 
+				}
+				var localUser = [];
+				function userListData(){
+					localUser = JSON.parse(localStorage.getItem("userList"));
+					for(var i = 0; i< localUser.length; i++){
+						var tr = document.createElement('tr');
+						var td1 = document.createElement("td");
+						var td2 = document.createElement("td");
+						var td3 = document.createElement("td");
+						var btn = document.createElement('button');
+						tr.id = 'userRow-'+i;
+						td1.id = "userData-"+i+'-one';
+						td2.id = "userData-"+i+'-two';
+						td3.id = "userData-"+i+'-three';
+						btn.id = 'userData-btn-'+i;
+						
+						td1.style.color = "white";
+						td2.style.color = "white";
+						td3.style.color = "white";
+						document.getElementById("table").appendChild(tr);
+
+						document.getElementById('userRow-'+i).appendChild(td1);
+						document.getElementById('userRow-'+i).appendChild(td2);
+						document.getElementById('userRow-'+i).appendChild(td3);
+						document.getElementById('userRow-'+i).appendChild(btn);
+
+						document.getElementById('userData-btn-'+i).innerHTML = 'EDIT';
+						//Action Listeners
+						
+						document.getElementById('userData-btn-'+i).addEventListener("click",function(){
+							console.log("clicked");
+							 document.getElementById('editInputs').style.display = "block";
+							 var localArray = [];
+							 localArray = JSON.parse(localStorage.getItem("userList"));
+							 console.log(localArray);
+							/* for(var j in localArray ){
+								console.log(localArray[0].anyuser)
+								console.log(localArray[0].email)
+								console.log(localArray[0].age)
+								document.getElementById('updateName').value =localArray[0].anyuser;
+								document.frm[1] =localArray[0].email;
+								document.frm[2] =localArray[0].age;
+							 }*/	
+						});
+
+							document.getElementById('cancel').addEventListener("click",function(){
+							 document.getElementById('editInputs').style.display = "none";
+						});
+							//document.getElementById('userData-btn-'+i).addEventListener("click",function(){
+							// document.getElementById('editInputs').style.display = "block";
+						///});
+
+						document.getElementById("userData-"+i+'-one').innerHTML =localUser[i].anyuser;
+						document.getElementById("userData-"+i+'-two').innerHTML = localUser[i].email;
+						document.getElementById("userData-"+i+'-three').innerHTML =localUser[i].age;
+						
+					}
+				}
+		</script>
+</head>
+
+<body onload="adminData()">
+	<script src="script/script.js"></script>
+	<div class="dashboard-container">
+		<ul class="userDetails">
+			<li>Name : <span id="adminname"></span></li>
+			<li>Email : <span id="admin_email"></span></li>
+			<li>Age : <span id="admin_age"></span></li>
+		</ul>
+		<div class="userList">
+			<h2>User List</h2>
+			<table id="table">
+				<tr class="row">
+					<td>Name</td>
+					<td>Email</td>
+					<td>Age</td>
+				</tr>
+				<tr id="userData">
+
+				</tr>
+			</table>
 		</div>
-		
-	</body>
+	</div>
+	<div id="editInputs">
+		<form name="frm">
+			<input type="text" placeholder="Name" id="updateName"/><br/>
+			<input type="text" placeholder="Email" id="updateEmail"/><br/>
+			<input type="text" placeholder="Age" id="updateAge"/><br/>
+			<input type="button" value="Save" id="save">
+			<input type="button" value="Cancel" id="cancel">
+		</form>
+	</div>
+</body>
+
 </html>
